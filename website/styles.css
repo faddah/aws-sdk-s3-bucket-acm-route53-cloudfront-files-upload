@@ -1,0 +1,141 @@
+* {
+    font-size: 60px;
+    margin: 0;
+}
+
+html{
+    background: linear-gradient(to bottom, #000000 0%, #2D2D2D 80%);
+    height: 100%;
+}
+
+body {
+    color: gold;
+    margin: .25rem;
+    padding: 0;
+    height: 100%;
+    width: 100vw;
+}
+
+#page-title {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-horizontal: auto;
+    margin-bottom: 0.25em;
+    padding-top: 5vh;
+    position: relative;
+    height: auto;
+    width: 100vw;
+}
+
+#page-title img {
+    border: 0.1em solid gold;
+    border-radius: 25px;
+    margin-bottom: 0.5em;
+    height: auto;
+    width: 400px;
+}
+
+#page-title h1 {
+    font-size: 1.5em;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    width: 100vw;
+    min-height: 100vh;
+    place-items: center;
+    gap: 20px;
+    margin: 0 auto;
+    padding: 20px 20px 100px 20px;
+}
+
+.select-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    flex: 1;
+    gap: 10px;
+}
+
+.select-group select {
+    background: linear-gradient(to bottom, #C0C0C0 0%, #2D2D2D 66.67%);
+    border: 1px solid #000000;
+    border-radius: 25px;
+    color: gold;;
+    font-size: 0.325em;
+    padding: 0.25em;
+    min-width: 120px;
+    max-width: 420px;
+    height: 2em;
+    width: 100%;
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+    -ms-text-align-last: center; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .select-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .select-group {
+        width: 80%;
+    }
+}
+
+#dice-results {
+    background: linear-gradient(to bottom, #000000 0%, #1A1A1A 100%);
+    border: 1px solid gold;
+    border-radius: 15px;
+    color: gold;
+    display: grid;
+    font-size: 0.625em;
+    font-weight: bold;
+    padding: .5em;
+    text-align: center;
+    width: 80%;
+    min-height: 200px;
+    margin: 20px auto;
+    place-items: center;
+    resize: vertical;
+}
+
+button {
+    background: linear-gradient(to bottom, #DC143C 0%, #2D2D2D 66.67%);
+    border: 1px solid gold;
+    border-radius: 25px;
+    color: gold;
+    display: flex;
+    font-size: 0.325em;
+    justify-content: center;
+    line-height: 0.5em;
+    margin: 20px auto 1.67em auto;
+    padding: 0.75em;
+}
+
+.footer-spacer {
+    width: 100vw;
+    height: 100px;
+}
+
+/* Ensure all text in child elements inherits the gold color */
+.container * {
+    color: gold;
+}
