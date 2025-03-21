@@ -1,11 +1,13 @@
 * {
     font-size: 60px;
     margin: 0;
+    padding: 0;
 }
 
 html{
     background: linear-gradient(to bottom, #000000 0%, #2D2D2D 80%);
-    height: 100%;
+    min-height: 100vh;
+    height: auto;
 }
 
 body {
