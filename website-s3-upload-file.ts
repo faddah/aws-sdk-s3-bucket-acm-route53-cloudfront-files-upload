@@ -112,12 +112,23 @@ async function uploadWebsiteFiles() {
 }
 
 async function main() {
-    const HTMLFilePath = './website/index.html';
-    const AVIFFilePath = './website/dandddice.avif';
-    const JSONFilePath = './website/package.json';
-    await updateFile(HTMLFilePath, 'text/html');
-    await updateFile(AVIFFilePath, 'image/avif');
-    await updateFile(JSONFilePath, 'application/json');
+    const HTMLFilePath: string = './website/index.html';
+    const AVIFFilePath: string = './website/dandddice.avif';
+    const JSONFilePath: string = './website/package.json';
+    const HTMLContentType: string = 'text/html';
+    const AVIFContentType: string = 'image/avif';
+    const JSONContentType: string = 'application/json';
+    const uploadArray: [ string[], string[], string[] ] = [
+        [HTMLFilePath, HTMLContentType],
+        [AVIFFilePath, AVIFContentType],
+        [JSONFilePath, JSONContentType]
+    ];
+    for (let member of uploadArray) {
+        await updateFile(member[0], member[1]);
+    }
+    // await updateFile(HTMLFilePath, 'text/html');
+    // await updateFile(AVIFFilePath, 'image/avif');
+    // await updateFile(JSONFilePath, 'application/json');
     // await createBucket();
     // await configureBucketWebsite();
     // await uploadWebsiteFiles();
