@@ -68,7 +68,7 @@ function getContentType(filePath: string): string {
     }
 }
 
-async function updateCSSFile(filePath: string) {
+async function updateFile(filePath: string, contentType: string) {
     const fileStream = fs.createReadStream(filePath);
     const upload = new Upload({
         client: s3Client,
@@ -76,7 +76,7 @@ async function updateCSSFile(filePath: string) {
             Bucket: BUCKET_NAME,
             Key: path.basename(filePath),
             Body: fileStream,
-            ContentType: 'text/css',
+            ContentType: contentType,
             // Optional: Set cache control to prevent caching issues
             CacheControl: 'no-cache'
         }
@@ -84,26 +84,25 @@ async function updateCSSFile(filePath: string) {
 
     try {
         await upload.done();
-        console.log(`CSS file ${filePath} updated successfully.`);
+        console.log(`The file ${filePath} was uploaded & updated successfully to S3 bucket, ${BUCKET_NAME}.`);
     } catch (err) {
-        console.error(`Error updating CSS file ${filePath}:`, err);
+        console.error(`Error updating the file ${filePath} to the S3 bucket, ${BUCKET_NAME}:`, err);
     }
 }
 
-async function verifyCSSUpload(fileName: string) {
+async function verifyFileUpload(fileName: string) {
     try {
         const command = new HeadObjectCommand({
             Bucket: BUCKET_NAME,
             Key: fileName
         });
         await s3Client.send(command);
-        console.log(`CSS file, ${fileName}, verification successful`);
+        
+        console.log(`The file, ${fileName}, verification successful in S3 bucket, ${BUCKET_NAME}`);
     } catch (err) {
-        console.error('CSS file verification failed:', err);
+        console.error('The file verification in the S3 bucket, ${BUCKET_NAME}, failed:', err);
     }
 }
-
-
 
 async function uploadWebsiteFiles() {
     const files = fs.readdirSync(LOCAL_FOLDER);
@@ -113,15 +112,22 @@ async function uploadWebsiteFiles() {
 }
 
 async function main() {
-    const cssFilePath = './website/styles.css';
-    await updateCSSFile(cssFilePath);
+    const HTMLFilePath = './website/index.html';
+    const AVIFFilePath = './website/dandddice.avif';
+    const JSONFilePath = './website/package.json';
+    await updateFile(HTMLFilePath, 'text/html');
+    await updateFile(AVIFFilePath, 'image/avif');
+    await updateFile(JSONFilePath, 'application/json');
     // await createBucket();
     // await configureBucketWebsite();
     // await uploadWebsiteFiles();
     // console.log(`Dice Roller Website uploaded successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
-    console.log(`Dice Roller Website uploaded the file, ${cssFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
-    verifyCSSUpload('styles.css');
-
+    verifyFileUpload('index.html');
+    verifyFileUpload('dandddice.avif');
+    verifyFileUpload('package.json');
+    console.log(`Dice Roller Website uploaded the file, ${HTMLFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    console.log(`Dice Roller Website uploaded the file, ${AVIFFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    console.log(`Dice Roller Website uploaded the file, ${JSONFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
 }
 
 main();
