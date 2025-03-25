@@ -1,4 +1,10 @@
-import { S3Client, CreateBucketCommand, PutBucketWebsiteCommand, PutObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
+import { 
+    S3Client,
+    CreateBucketCommand,
+    PutBucketWebsiteCommand,
+    PutObjectCommand,
+    HeadObjectCommand
+} from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import * as fs from 'fs';
 import * as path from 'path';
@@ -59,11 +65,13 @@ function getContentType(filePath: string): string {
         case '.html': return 'text/html';
         case '.css': return 'text/css';
         case '.js': return 'application/javascript';
+        case '.ts': return 'text/javascript';
         case '.jpg': case '.jpeg': return 'image/jpeg';
         case '.png': return 'image/png';
         case '.gif': return 'image/gif';
         case '.svg': return 'image/svg+xml';
         case '.ico': return 'image/x-icon';
+        case '.json': return 'application/json';
         default: return 'application/octet-stream';
     }
 }
@@ -112,16 +120,26 @@ async function uploadWebsiteFiles() {
 }
 
 async function main() {
-    const HTMLFilePath: string = './website/index.html';
-    const AVIFFilePath: string = './website/dandddice.avif';
-    const JSONFilePath: string = './website/package.json';
-    const HTMLContentType: string = 'text/html';
-    const AVIFContentType: string = 'image/avif';
-    const JSONContentType: string = 'application/json';
-    const uploadArray: [ string[], string[], string[] ] = [
-        [HTMLFilePath, HTMLContentType],
-        [AVIFFilePath, AVIFContentType],
-        [JSONFilePath, JSONContentType]
+    const faviconFilePath: string = './website/favicon.ico';
+    // const HTMLFilePath: string = './website/index.html';
+    // const counterTSFilePath: string = './website/counter.ts';
+    // const counterJSFilePath: string = './website/counter.js';
+    // const diceRollerTSFilePath: string = './website/diceRoller.ts';
+    // const diceRollerJSFilePath: string = './website/diceRoller.js';
+    // const diceRollResultIFTSFilePath: string = './website/diceRollResultIF.ts';
+    // const diceRollResultIFJSFilePath: string = './website/diceRollResultIF.js';
+    // const JSONFilePath: string = './website/package.json';
+    const faviconFileType: string = 'image/x-icon';
+    // const HTMLContentType: string = 'text/html';
+    // const counterTSFileType: string = 'text/javascript';
+    // const counterJSFileType: string = 'application/javascript';
+    // const diceRollerTSFileType: string = 'text/javascript';
+    // const diceRollerJSFileType: string = 'application/javascript';
+    // const diceRollResultIFTSFileType: string = 'text/javascript';
+    // const diceRollResultIFJSFileType: string = 'application/javascript';
+    // const JSONContentType: string = 'application/json';
+    const uploadArray: [ string[] ] = [
+        [faviconFilePath, faviconFileType]
     ];
     for (let member of uploadArray) {
         await updateFile(member[0], member[1]);
@@ -133,12 +151,23 @@ async function main() {
     // await configureBucketWebsite();
     // await uploadWebsiteFiles();
     // console.log(`Dice Roller Website uploaded successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
-    verifyFileUpload('index.html');
-    verifyFileUpload('dandddice.avif');
-    verifyFileUpload('package.json');
-    console.log(`Dice Roller Website uploaded the file, ${HTMLFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
-    console.log(`Dice Roller Website uploaded the file, ${AVIFFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
-    console.log(`Dice Roller Website uploaded the file, ${JSONFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // verifyFileUpload('index.html');
+    // verifyFileUpload('counter.ts');
+    // verifyFileUpload('counter.js');
+    verifyFileUpload('favicon.ico');
+    // verifyFileUpload('counter.js');
+    // verifyFileUpload('diceRoller.ts');
+    // verifyFileUpload('diceRoller.js');
+    // verifyFileUpload('index.hmml');
+    // verifyFileUpload('package.json');
+    console.log(`Dice Roller Website uploaded the file, ${faviconFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${counterTSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${counterJSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${diceRollerTSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${diceRollerJSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${counterJSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${diceRollerTSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
+    // console.log(`Dice Roller Website uploaded the file, ${diceRollerJSFilePath}, successfully to S3 Bucket, "${BUCKET_NAME}". You can access it at: http://${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com`);
 }
 
 main();
