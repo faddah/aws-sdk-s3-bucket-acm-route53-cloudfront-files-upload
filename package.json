@@ -12,11 +12,11 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@aws-sdk/client-acm": "^3.758.0",
-    "@aws-sdk/client-cloudfront": "^3.764.0",
-    "@aws-sdk/client-route-53": "^3.770.0",
-    "@aws-sdk/client-s3": "^3.758.0",
-    "@aws-sdk/lib-storage": "^3.758.0"
+    "@aws-sdk/client-acm": "^3.775.0",
+    "@aws-sdk/client-cloudfront": "^3.775.0",
+    "@aws-sdk/client-route-53": "^3.775.0",
+    "@aws-sdk/client-s3": "^3.775.0",
+    "@aws-sdk/lib-storage": "^3.775.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
